@@ -181,6 +181,12 @@ var server = {
         // get proxy config by proxy server id
         var proxyConfig = config;
 
+        if(typeof (req.params[0])  !== 'undefined'){
+                requestURL =  '/' + req.params[0];
+                url = method.toUpperCase() + ':' + '/' + req.params[0];
+                req.url = requestURL;
+        }
+
         if (this.staticMatched(url, proxyConfig.rules.static)) {
             // match route is static file response
             var directory = path.resolve(process.cwd(), '.');
