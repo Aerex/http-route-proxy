@@ -187,6 +187,20 @@ var server = {
                 req.url = requestURL;
         }
 
+        if(typeof (req.query) !== 'undefined'){
+            var firstQuery = true;
+            for (key in req.query){
+                if(firstQuery){
+                    requestURL+= '?' + key + '=' + req.query[key];
+                    firstQuery = false;
+                } else{
+                    requestURL+= '&' + key + '=' + req.query[key];
+                }
+            }
+
+            req.url = requestURL;
+        }
+
         if (this.staticMatched(url, proxyConfig.rules.static)) {
             // match route is static file response
             var directory = path.resolve(process.cwd(), '.');
